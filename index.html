@@ -28,8 +28,8 @@ html, body { height:100%; font-family: Arial, sans-serif; overflow: hidden; }
     display: flex;
     justify-content: center;  /* centraliza horizontalmente */
     align-items: center;      /* centraliza verticalmente */
-    background-color: black;  /* fundo caso a imagem não preencha */
     position: relative;
+    background-color: #3D3D3D;
 }
 
 .banner img {
@@ -65,14 +65,63 @@ html, body { height:100%; font-family: Arial, sans-serif; overflow: hidden; }
 <div class="carousel-container">
     <div class="carousel-track">
         <div class="banner">
-            <img src="images/Logo Elegante de Odontologia Estética.png" alt="Banner 1">
+            <img src="images/00.jpeg" alt="Banner 1">
         </div>
         <div class="banner">
-            <img src="images/Logo Elegante de Odontologia Estética.png" alt="Banner 2">
+            <img src="images/1 (1).png" alt="Banner 1">
         </div>
         <div class="banner">
-            <img src="images/Logo Elegante de Odontologia Estética.png" alt="Banner 3">
+            <img src="images/ML (1).png" alt="Banner 1">
         </div>
+        <div class="banner">
+            <img src="images/1 (2).png" alt="Banner 2">
+        </div>
+        <div class="banner">
+            <img src="images/ML (2).png" alt="Banner 2">
+        </div>
+        <div class="banner">
+            <img src="images/1 (3).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (3).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (4).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (4).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (5).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (5).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (6).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (6).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (7).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (7).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (8).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (8).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/1 (9).png" alt="Banner 3">
+        </div>
+        <div class="banner">
+            <img src="images/ML (9).png" alt="Banner 3">
+        </div>
+        
     </div>
 
     <button class="prev">&#10094;</button>
@@ -86,6 +135,7 @@ const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
 let currentIndex = 0;
 
+// Função para atualizar posição
 function updateCarousel() {
     track.style.transform = `translateX(${-currentIndex * 100}%)`;
 }
@@ -104,17 +154,35 @@ nextButton.addEventListener('click', () => {
 let startX = 0;
 let isDragging = false;
 
-track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+track.addEventListener('touchstart', e => { 
+    startX = e.touches[0].clientX; 
+    isDragging = true; 
+    pauseAutoSlide(); // pausa carrossel ao tocar
+});
 track.addEventListener('touchend', e => {
     isDragging = false;
     const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
     if (diff > 50) nextButton.click();
     else if (diff < -50) prevButton.click();
+    resumeAutoSlide(); // retoma carrossel após soltar
 });
 
+// Pausa e retoma no mouse (desktop)
+track.addEventListener('mouseenter', pauseAutoSlide);
+track.addEventListener('mouseleave', resumeAutoSlide);
+
 // Carrossel automático
-setInterval(() => { nextButton.click(); }, 5000);
+let autoSlide = setInterval(() => { nextButton.click(); }, 5000);
+
+function pauseAutoSlide() {
+    clearInterval(autoSlide);
+}
+
+function resumeAutoSlide() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(() => { nextButton.click(); }, 5000);
+}
 </script>
 
 </body>
